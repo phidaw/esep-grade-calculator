@@ -6,6 +6,7 @@ type GradeCalculator struct {
 	essays      []Grade
 }
 
+// ------------- enum -------------
 type GradeType int
 
 const (
@@ -20,6 +21,7 @@ var gradeTypeName = map[GradeType]string{
 	Essay:      "essay",
 }
 
+// GradeType to-string method
 func (gt GradeType) String() string {
 	return gradeTypeName[gt]
 }
@@ -30,6 +32,7 @@ type Grade struct {
 	Type  GradeType
 }
 
+// struct constructor
 func NewGradeCalculator() *GradeCalculator {
 	return &GradeCalculator{
 		assignments: make([]Grade, 0),
@@ -38,6 +41,7 @@ func NewGradeCalculator() *GradeCalculator {
 	}
 }
 
+// ------------- struct methods -------------
 func (gc *GradeCalculator) GetFinalGrade() string {
 	numericalGrade := gc.calculateNumericalGrade()
 
@@ -87,11 +91,15 @@ func (gc *GradeCalculator) calculateNumericalGrade() int {
 	return int(weighted_grade)
 }
 
+// ------------- module functions -------------
 func computeAverage(grades []Grade) int {
 	sum := 0
 
-	for grade, _ := range grades {
-		sum += grade
+	// first iter var is current iteration number, or 'i'
+	// second iter var is the ith element in grades, or grades[i]
+	// since 'g' is a struct, access Grade from each element and append to 'sum'
+	for _, g := range grades {
+		sum += g.Grade
 	}
 
 	return sum / len(grades)
